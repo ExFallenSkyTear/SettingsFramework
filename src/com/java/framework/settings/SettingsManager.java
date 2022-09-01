@@ -1,3 +1,5 @@
+package com.java.framework.settings;
+
 import java.util.HashMap;
 
 public class SettingsManager {

@@ -1,3 +1,5 @@
+import com.java.framework.settings.*;
+
 public class Main {
     public static final SettingsManager globalSettings = new SettingsManager();
     public static void main(String[] args) throws Exception {

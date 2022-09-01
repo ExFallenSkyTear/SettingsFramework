@@ -1,4 +1,6 @@
-public class GenericEntry<EntryType> {
+package com.java.framework.settings;
+
+public abstract class GenericEntry {
     private String name = null;
 
     public void setName(String name) {
@@ -7,9 +9,5 @@ public class GenericEntry<EntryType> {
 
     public String getName() {
         return this.name;
-    }
-
-    public EntryType getValue() {
-        return null;
     }
 }
