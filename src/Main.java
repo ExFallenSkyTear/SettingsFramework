@@ -14,5 +14,22 @@ public class Main {
         databaseAddressEntry.setValue("192.168.1.1");
         System.out.println(databaseAddressEntry.getValue());
         System.out.println(databaseEmailEntry.isNewValueValid("name.surname@domain.net"));
+
+        NumericEntry<Integer> databasePortEntry = databaseCategory.createEntry(NumericEntry.class, "Port");
+
+        System.out.println(databasePortEntry.getLowerBound());
+        System.out.println(databasePortEntry.getUpperBound());
+        System.out.println(databasePortEntry.getValue());
+
+        databasePortEntry.setLowerBound(0);
+        databasePortEntry.setUpperBound(65525);
+        databasePortEntry.setValue(203);
+
+        System.out.println(databasePortEntry.getLowerBound());
+        System.out.println(databasePortEntry.getUpperBound());
+        System.out.println(databasePortEntry.getValue());
+
+        databasePortEntry.setValue(65525);
+        System.out.println(databasePortEntry.getValue());
     }
 }

@@ -1,6 +1,6 @@
 package com.java.framework.settings;
 
-public class NumericEntry<numericType> extends GenericEntry implements EntryInterface<numericType> {
+public class NumericEntry<numericType extends Number> extends GenericEntry implements EntryInterface<numericType> {
     private numericType value;
 
     private numericType lowerBound;
@@ -20,7 +20,7 @@ public class NumericEntry<numericType> extends GenericEntry implements EntryInte
         if (isValueLowerThanLBound()) this.value = this.lowerBound;
     }
 
-    public numericType GetLowerBound() {
+    public numericType getLowerBound() {
         return this.lowerBound;
     }
 
@@ -29,27 +29,27 @@ public class NumericEntry<numericType> extends GenericEntry implements EntryInte
         if (isValueGreaterThanUBound()) this.value = this.upperBound;
     }
 
-    public numericType GetUpperBound() {
+    public numericType getUpperBound() {
         return this.upperBound;
     }
 
     public boolean isNewValueValid(numericType newValue) {
-        return this.lowerBound <= newValue && newValue <= this.upperBound;
+        return this.lowerBound.doubleValue() <= newValue.doubleValue() && newValue.doubleValue() <= this.upperBound.doubleValue();
     }
 
     public boolean isNewLBoundValid(numericType newValue) {
-        return newValue < this.upperBound;
+        return this.upperBound == null || newValue.doubleValue() < this.upperBound.doubleValue();
     }
 
     public boolean isNewUBoundValid(numericType newValue) {
-        return newValue > this.upperBound;
+        return this.lowerBound == null || newValue.doubleValue() > this.lowerBound.doubleValue();
     }
 
     public boolean isValueLowerThanLBound() {
-        return this.value > this.lowerBound;
+        return this.lowerBound != null && this.value != null && this.value.doubleValue() > this.lowerBound.doubleValue();
     }
 
     public boolean isValueGreaterThanUBound() {
-            return this.value > this.upperBound;
-        }
+            return this.upperBound != null && this.value != null && this.value.doubleValue() > this.upperBound.doubleValue();
+    }
 }
