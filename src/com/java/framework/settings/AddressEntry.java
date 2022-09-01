@@ -1,5 +1,8 @@
 package com.java.framework.settings;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,5 +43,11 @@ public class AddressEntry extends GenericEntry implements EntryInterface<String>
     public boolean isNewValueValid(String newValue) {
         Matcher matcher = this.validationPattern.matcher(newValue);
         return matcher.find();
+    }
+
+    public void addToXml(Document sourceDocument, Element sourceElement) {
+        Element localNode = sourceDocument.createElement(super.getName());
+        sourceElement.appendChild(localNode);
+        localNode.appendChild(sourceDocument.createTextNode(this.getValue()));
     }
 }

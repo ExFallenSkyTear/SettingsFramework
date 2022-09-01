@@ -1,10 +1,17 @@
 package com.java.framework.settings;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Properties;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import java.io.FileOutputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 public class SettingsManager {
     private ArrayList<Category> settingsCategories = new ArrayList<>();
@@ -31,13 +38,37 @@ public class SettingsManager {
         return -1;
     }
 
-    public void writeSettingsToFile(String fullFilePath) throws IOException {
-        Properties prop = new Properties();
-        InputStream in = getClass().getResourceAsStream("xyz.properties");
-        prop.load(in);
+    public void exportConfiguration(String fullFilePath) throws Exception {
+        this.writeXmlToFile(fullFilePath, this.getXmlRepresentation());
+    }
 
-        prop.setProperty("newkey", "newvalue");
+    private Document getXmlRepresentation() throws Exception {
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-        prop.store(new FileOutputStream("xyz.properties"), null);
+        Document xmlDocument = docBuilder.newDocument();
+
+        Element root = xmlDocument.createElement("Settings");
+        xmlDocument.appendChild(root);
+
+        for (Category category: settingsCategories) {
+            category.addToXml(xmlDocument, root);
+        }
+
+        return xmlDocument;
+    }
+
+    private void writeXmlToFile(String fullFilePath, Document xmlDocument) throws Exception {
+        FileOutputStream outputStream = new FileOutputStream(fullFilePath);
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+        DOMSource source = new DOMSource(xmlDocument);
+        StreamResult result = new StreamResult(outputStream);
+
+        transformer.transform(source, result);
     }
 }

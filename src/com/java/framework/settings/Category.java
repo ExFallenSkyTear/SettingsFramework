@@ -1,5 +1,8 @@
 package com.java.framework.settings;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import java.util.ArrayList;
 
 public class Category {
@@ -34,5 +37,14 @@ public class Category {
             if (categoryEntries.get(i).getName() == entryName) return i;
         }
         return -1;
+    }
+
+    public void addToXml(Document sourceDocument, Element sourceElement){
+        Element localNode = sourceDocument.createElement(this.name);
+        sourceElement.appendChild(localNode);
+
+        for (int i = 0; i < categoryEntries.size(); i++) {
+            categoryEntries.get(i).addToXml(sourceDocument, localNode);
+        }
     }
 }

@@ -6,7 +6,7 @@ public class Main {
         Category databaseCategory = globalSettings.createCategory("Database");
 
         AddressEntry databaseAddressEntry = databaseCategory.createEntry(AddressEntry.class, "Address");
-        StringEntry databaseEmailEntry = databaseCategory.createEntry(StringEntry.class, "Address");
+        StringEntry databaseEmailEntry = databaseCategory.createEntry(StringEntry.class, "Email");
 
         databaseEmailEntry.setValidationPattern("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
 
@@ -14,6 +14,10 @@ public class Main {
         databaseAddressEntry.setValue("192.168.1.1");
         System.out.println(databaseAddressEntry.getValue());
         System.out.println(databaseEmailEntry.isNewValueValid("name.surname@domain.net"));
+
+        databaseEmailEntry.setValue("name.surname@domain.net");
+
+        System.out.println(databaseEmailEntry.getValue());
 
         NumericEntry<Integer> databasePortEntry = databaseCategory.createEntry(NumericEntry.class, "Port");
 
@@ -31,5 +35,7 @@ public class Main {
 
         databasePortEntry.setValue(65525);
         System.out.println(databasePortEntry.getValue());
+
+        globalSettings.exportConfiguration("C:\\tmp\\test.xml");
     }
 }

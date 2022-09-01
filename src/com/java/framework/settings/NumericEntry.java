@@ -1,5 +1,8 @@
 package com.java.framework.settings;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public class NumericEntry<numericType extends Number> extends GenericEntry implements EntryInterface<numericType> {
     private numericType value;
 
@@ -51,5 +54,11 @@ public class NumericEntry<numericType extends Number> extends GenericEntry imple
 
     public boolean isValueGreaterThanUBound() {
             return this.upperBound != null && this.value != null && this.value.doubleValue() > this.upperBound.doubleValue();
+    }
+
+    public void addToXml(Document sourceDocument, Element sourceElement) {
+        Element localNode = sourceDocument.createElement(super.getName());
+        sourceElement.appendChild(localNode);
+        localNode.appendChild(sourceDocument.createTextNode(this.getValue().toString()));
     }
 }
