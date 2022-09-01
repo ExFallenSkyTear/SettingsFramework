@@ -6,7 +6,7 @@ import org.w3c.dom.Element;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringEntry extends GenericEntry implements EntryInterface<String> {
+public class StringEntry extends GenericEntry<String> implements EntryInterface<String> {
     private String value;
     private Pattern validationPattern;
 

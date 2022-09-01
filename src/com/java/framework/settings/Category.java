@@ -18,6 +18,7 @@ public class Category {
     }
 
     public <E extends GenericEntry> E createEntry(final Class<E> clazz, String entryName) throws Exception {
+        if (this.entryExist(entryName)) throw new IllegalArgumentException();
         E newEntry = clazz.newInstance();
         newEntry.setName(entryName);
         categoryEntries.add(newEntry);

@@ -6,6 +6,5 @@ import org.w3c.dom.Element;
 public interface EntryInterface<EntryType> {
     void setValue(EntryType newValue);
     EntryType getValue();
-
-    public void addToXml(Document sourceDocument, Element sourceElement);
+    void addToXml(Document sourceDocument, Element sourceElement);
 }

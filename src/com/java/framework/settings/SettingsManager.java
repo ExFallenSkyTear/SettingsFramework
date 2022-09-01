@@ -2,13 +2,21 @@ package com.java.framework.settings;
 
 import java.util.ArrayList;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import java.io.FileOutputStream;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -16,8 +24,10 @@ import javax.xml.transform.stream.StreamResult;
 public class SettingsManager {
     private ArrayList<Category> settingsCategories = new ArrayList<>();
 
+    private final String ROOTELEMENTNAME = "Settings";
+
     public Category createCategory(String categoryName) throws IllegalArgumentException {
-        if (categoryExist(categoryName)) throw new IllegalArgumentException();
+        if (this.categoryExist(categoryName)) throw new IllegalArgumentException();
         Category newCategory = new Category(categoryName);
         settingsCategories.add(newCategory);
         return newCategory;
@@ -39,26 +49,30 @@ public class SettingsManager {
     }
 
     public void exportConfiguration(String fullFilePath) throws Exception {
-        this.writeXmlToFile(fullFilePath, this.getXmlRepresentation());
+        this.writeXmlDocument(fullFilePath, this.getXmlDocument());
     }
 
-    private Document getXmlRepresentation() throws Exception {
+    private Document getXmlDocument() throws Exception {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
         Document xmlDocument = docBuilder.newDocument();
 
-        Element root = xmlDocument.createElement("Settings");
-        xmlDocument.appendChild(root);
-
-        for (Category category: settingsCategories) {
-            category.addToXml(xmlDocument, root);
-        }
+        this.addToXml(xmlDocument);
 
         return xmlDocument;
     }
 
-    private void writeXmlToFile(String fullFilePath, Document xmlDocument) throws Exception {
+    public void addToXml(Document sourceDocument){
+        Element localNode = sourceDocument.createElement(ROOTELEMENTNAME);
+        sourceDocument.appendChild(localNode);
+
+        for (int i = 0; i < settingsCategories.size(); i++) {
+            settingsCategories.get(i).addToXml(sourceDocument, localNode);
+        }
+    }
+
+    private void writeXmlDocument(String fullFilePath, Document xmlDocument) throws Exception {
         FileOutputStream outputStream = new FileOutputStream(fullFilePath);
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -70,5 +84,54 @@ public class SettingsManager {
         StreamResult result = new StreamResult(outputStream);
 
         transformer.transform(source, result);
+    }
+
+    public void importConfiguration(String fullFilePath) {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
+        try {
+            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+
+            DocumentBuilder db = dbf.newDocumentBuilder();
+
+            Document doc = db.parse(new File(fullFilePath));
+
+            doc.getDocumentElement().normalize();
+
+            NodeList importCategories = doc.getDocumentElement().getChildNodes();
+            Node importCategory;
+            String importCategoryName;
+
+            Category targetCategory;
+
+            NodeList importEntries;
+            Node importEntry;
+            String importEntryName;
+
+            for (int i = 0; i < importCategories.getLength(); i++) {
+                importCategory = importCategories.item(i);
+                importCategoryName = importCategory.getNodeName();
+
+                System.out.println(importCategoryName);
+
+                if (this.categoryExist(importCategoryName)) {
+                    targetCategory = this.getCategory(importCategoryName);
+                    importEntries = importCategories.item(i).getChildNodes();
+
+                    for (int x = 0; x < importEntries.getLength(); x++) {
+                        importEntry = importEntries.item(x);
+                        importEntryName = importEntry.getNodeName();
+
+                        if (targetCategory.entryExist(importEntryName)) {
+                            targetCategory.getEntry(importEntryName).setValue(importEntry.getTextContent());
+                        }
+                    }
+                }
+            }
+
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

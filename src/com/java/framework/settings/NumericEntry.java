@@ -3,7 +3,7 @@ package com.java.framework.settings;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class NumericEntry<numericType extends Number> extends GenericEntry implements EntryInterface<numericType> {
+public class NumericEntry<numericType extends Number> extends GenericEntry<numericType> implements EntryInterface<numericType> {
     private numericType value;
 
     private numericType lowerBound;
