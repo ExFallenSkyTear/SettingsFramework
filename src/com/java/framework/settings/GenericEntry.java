@@ -17,6 +17,7 @@ public abstract class GenericEntry<entryType> {
     public void addToXml(Document sourceDocument, Element sourceElement) {}
 
     public void setValue(entryType newValue) {}
+
     public entryType getValue() {
         return null;
     }
