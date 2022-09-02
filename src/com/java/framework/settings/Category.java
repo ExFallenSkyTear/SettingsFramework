@@ -6,7 +6,7 @@ import org.w3c.dom.Element;
 import java.util.ArrayList;
 
 public class Category {
-    private ArrayList<GenericEntry> categoryEntries = new ArrayList<>();
+    private final ArrayList<GenericEntry> categoryEntries = new ArrayList<>();
     private final String name;
 
     Category(String name) {

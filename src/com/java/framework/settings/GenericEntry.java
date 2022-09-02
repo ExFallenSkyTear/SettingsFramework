@@ -4,7 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class GenericEntry<entryType> {
-    private String name = null;
+    private String name;
 
     public void setName(String name) {
         if (this.name == null) this.name = name;
@@ -14,9 +14,9 @@ public abstract class GenericEntry<entryType> {
         return this.name;
     }
 
-    public void addToXml(Document sourceDocument, Element sourceElement) {};
+    public void addToXml(Document sourceDocument, Element sourceElement) {}
 
-    public void setValue(entryType newValue) {};
+    public void setValue(entryType newValue) {}
     public entryType getValue() {
         return null;
     }

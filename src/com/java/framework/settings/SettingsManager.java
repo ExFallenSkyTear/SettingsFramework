@@ -22,7 +22,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 public class SettingsManager {
-    private ArrayList<Category> settingsCategories = new ArrayList<>();
+    private final ArrayList<Category> settingsCategories = new ArrayList<>();
 
     private final String ROOTELEMENTNAME = "Settings";
 
