@@ -2,6 +2,7 @@ import com.java.framework.settings.*;
 
 public class Main {
     public static final SettingsManager globalSettings = new SettingsManager();
+
     public static void main(String[] args) throws Exception {
         Category databaseCategory = globalSettings.createCategory("Database");
 
@@ -18,7 +19,7 @@ public class Main {
         databasePortEntry.setLowerBound(0);
         databasePortEntry.setUpperBound(65525);
 
-        globalSettings.importConfiguration("C:\\tmp\\test.xml");
+        //globalSettings.importConfiguration("C:\\tmp\\test.xml");
 
         System.out.println(databaseAddressEntry.getValue());
         System.out.println(databaseEmailEntry.getValue());
@@ -26,6 +27,6 @@ public class Main {
         System.out.println(loggingLevelEntry.getValue());
         System.out.println(loggingEnabledEntry.getValue());
 
-        //globalSettings.exportConfiguration("C:\\tmp\\test.xml");
+        globalSettings.exportConfiguration("C:\\tmp\\");
     }
 }

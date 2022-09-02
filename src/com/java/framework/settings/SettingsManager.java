@@ -24,7 +24,9 @@ import javax.xml.transform.stream.StreamResult;
 public class SettingsManager {
     private final ArrayList<Category> settingsCategories = new ArrayList<>();
 
-    private final String ROOTELEMENTNAME = "Settings";
+    private final String ROOT_ELEMENT_NAME = "Settings";
+
+    private final String FILE_NAME = "FileName.xml";
 
     public Category createCategory(String categoryName) throws IllegalArgumentException {
         if (!this.categoryExist(categoryName)) {
@@ -49,7 +51,8 @@ public class SettingsManager {
         return -1;
     }
 
-    public void exportConfiguration(String fullFilePath) throws Exception {
+    public void exportConfiguration(String fileDirectory) throws Exception {
+        String fullFilePath = fileDirectory + FILE_NAME;
         this.writeXmlDocument(fullFilePath, this.getXmlDocument());
     }
 
@@ -65,7 +68,7 @@ public class SettingsManager {
     }
 
     public void addToXml(Document sourceDocument){
-        Element localNode = sourceDocument.createElement(ROOTELEMENTNAME);
+        Element localNode = sourceDocument.createElement(ROOT_ELEMENT_NAME);
         sourceDocument.appendChild(localNode);
 
         for (int i = 0; i < settingsCategories.size(); i++) {

@@ -7,7 +7,10 @@ import java.util.ArrayList;
 
 public class Category {
     private final ArrayList<GenericEntry> categoryEntries = new ArrayList<>();
+
     private final String name;
+
+    private boolean ignoreExport;
 
     Category(String name) {
         this.name = name;
@@ -15,6 +18,18 @@ public class Category {
 
     public String getName() {
         return this.name;
+    }
+
+    public boolean isIgnoringExport() {
+        return this.ignoreExport;
+    }
+
+    public void enableExport() {
+        this.ignoreExport = true;
+    }
+
+    public void disableExport() {
+        this.ignoreExport = false;
     }
 
     public <E extends GenericEntry> E createEntry(final Class<E> clazz, String entryName) throws Exception {
