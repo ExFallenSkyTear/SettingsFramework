@@ -27,10 +27,11 @@ public class SettingsManager {
     private final String ROOTELEMENTNAME = "Settings";
 
     public Category createCategory(String categoryName) throws IllegalArgumentException {
-        if (this.categoryExist(categoryName)) throw new IllegalArgumentException();
-        Category newCategory = new Category(categoryName);
-        settingsCategories.add(newCategory);
-        return newCategory;
+        if (!this.categoryExist(categoryName)) {
+            Category newCategory = new Category(categoryName);
+            settingsCategories.add(newCategory);
+            return newCategory;
+        } else throw new IllegalArgumentException();
     }
 
     public Category getCategory(String categoryName) {
