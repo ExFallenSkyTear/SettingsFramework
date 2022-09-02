@@ -3,7 +3,6 @@ import com.java.framework.settings.*;
 public class Main {
     public static final SettingsManager globalSettings = new SettingsManager();
     public static void main(String[] args) throws Exception {
-
         Category databaseCategory = globalSettings.createCategory("Database");
 
         AddressEntry databaseAddressEntry = databaseCategory.createEntry(AddressEntry.class, "Address");
