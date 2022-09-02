@@ -32,4 +32,8 @@ public class StringEntry extends GenericEntry<String> implements EntryInterface<
         sourceElement.appendChild(localNode);
         localNode.appendChild(sourceDocument.createTextNode(this.getValue()));
     }
+
+    public String parse(String value) {
+        return value;
+    }
 }

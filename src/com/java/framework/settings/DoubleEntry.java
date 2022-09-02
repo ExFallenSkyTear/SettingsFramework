@@ -37,7 +37,7 @@ public class DoubleEntry extends GenericEntry<Double> implements EntryInterface<
     }
 
     public boolean isNewValueValid(double newValue) {
-        return this.lowerBound <= newValue && newValue <= this.upperBound;
+        return this.lowerBound == this.upperBound || this.lowerBound <= newValue && newValue <= this.upperBound;
     }
 
     public boolean isNewLBoundValid(double newValue) {
@@ -60,5 +60,9 @@ public class DoubleEntry extends GenericEntry<Double> implements EntryInterface<
         Element localNode = sourceDocument.createElement(super.getName());
         sourceElement.appendChild(localNode);
         localNode.appendChild(sourceDocument.createTextNode(String.valueOf(this.getValue())));
+    }
+
+    public Double parse(String value) {
+        return Double.parseDouble(value);
     }
 }

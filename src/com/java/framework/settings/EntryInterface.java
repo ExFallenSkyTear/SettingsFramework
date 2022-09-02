@@ -7,4 +7,6 @@ public interface EntryInterface<EntryType> {
     void setValue(EntryType newValue);
     EntryType getValue();
     void addToXml(Document sourceDocument, Element sourceElement);
+
+    EntryType parse(String value);
 }

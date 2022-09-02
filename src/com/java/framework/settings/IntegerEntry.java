@@ -37,7 +37,7 @@ public class IntegerEntry extends GenericEntry<Integer> implements EntryInterfac
     }
 
     public boolean isNewValueValid(int newValue) {
-        return this.lowerBound <= newValue && newValue <= this.upperBound;
+        return this.lowerBound == this.upperBound || this.lowerBound <= newValue && newValue <= this.upperBound;
     }
 
     public boolean isNewLBoundValid(int newValue) {
@@ -60,5 +60,9 @@ public class IntegerEntry extends GenericEntry<Integer> implements EntryInterfac
         Element localNode = sourceDocument.createElement(super.getName());
         sourceElement.appendChild(localNode);
         localNode.appendChild(sourceDocument.createTextNode(String.valueOf(this.getValue())));
+    }
+
+    public Integer parse(String value) {
+        return Integer.parseInt(value);
     }
 }

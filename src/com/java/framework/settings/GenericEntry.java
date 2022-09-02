@@ -21,4 +21,6 @@ public abstract class GenericEntry<entryType> {
     public entryType getValue() {
         return null;
     }
+
+    public entryType parse(String value) { return null; }
 }

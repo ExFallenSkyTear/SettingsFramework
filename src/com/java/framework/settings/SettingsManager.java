@@ -113,8 +113,6 @@ public class SettingsManager {
                 importCategory = importCategories.item(i);
                 importCategoryName = importCategory.getNodeName();
 
-                System.out.println(importCategoryName);
-
                 if (this.categoryExist(importCategoryName)) {
                     targetCategory = this.getCategory(importCategoryName);
                     importEntries = importCategories.item(i).getChildNodes();
@@ -124,7 +122,11 @@ public class SettingsManager {
                         importEntryName = importEntry.getNodeName();
 
                         if (targetCategory.entryExist(importEntryName)) {
-                            targetCategory.getEntry(importEntryName).setValue(importEntry.getTextContent());
+                            targetCategory.getEntry(importEntryName).setValue(
+                                    targetCategory.getEntry(importEntryName).parse(
+                                            importEntry.getTextContent()
+                                    )
+                            );
                         }
                     }
                 }
@@ -133,6 +135,5 @@ public class SettingsManager {
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
-
     }
 }

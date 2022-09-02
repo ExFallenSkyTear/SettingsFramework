@@ -14,12 +14,11 @@ public class Main {
         DoubleEntry loggingLevelEntry = loggingCategory.createEntry(DoubleEntry.class, "Level");
         BooleanEntry loggingEnabledEntry = loggingCategory.createEntry(BooleanEntry.class, "Enabled");
 
-
         databaseEmailEntry.setValidationPattern("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
         databasePortEntry.setLowerBound(0);
         databasePortEntry.setUpperBound(65525);
 
-        //globalSettings.importConfiguration("C:\\tmp\\test.xml");
+        globalSettings.importConfiguration("C:\\tmp\\test.xml");
 
         System.out.println(databaseAddressEntry.getValue());
         System.out.println(databaseEmailEntry.getValue());
@@ -27,6 +26,6 @@ public class Main {
         System.out.println(loggingLevelEntry.getValue());
         System.out.println(loggingEnabledEntry.getValue());
 
-        globalSettings.exportConfiguration("C:\\tmp\\test.xml");
+        //globalSettings.exportConfiguration("C:\\tmp\\test.xml");
     }
 }

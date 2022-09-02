@@ -19,4 +19,8 @@ public class BooleanEntry extends GenericEntry<Boolean> implements EntryInterfac
         sourceElement.appendChild(localNode);
         localNode.appendChild(sourceDocument.createTextNode(String.valueOf(this.getValue())));
     }
+
+    public Boolean parse(String value) {
+        return Boolean.parseBoolean(value);
+    }
 }
