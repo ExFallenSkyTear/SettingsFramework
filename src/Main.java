@@ -1,7 +1,7 @@
 import com.java.framework.settings.*;
 
 public class Main {
-    public static final SettingsManager globalSettings = new SettingsManager();
+    public static final Manager globalSettings = new Manager();
 
     public static void main(String[] args) throws Exception {
         Category databaseCategory = globalSettings.createCategory("Database");

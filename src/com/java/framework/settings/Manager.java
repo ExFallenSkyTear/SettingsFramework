@@ -21,7 +21,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-public class SettingsManager {
+public class Manager {
     private final ArrayList<Category> settingsCategories = new ArrayList<>();
 
     private final String ROOT_ELEMENT_NAME = "Settings";
